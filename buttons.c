@@ -66,6 +66,10 @@ void ButtonInit(void)
     GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_4);
     GPIOPadConfigSet(GPIO_PORTD_BASE, GPIO_PIN_4 , GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
 
+    //analog input for mic
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+    GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_5);
+
     // analog input AIN13, at GPIO PD2 = BoosterPack Joystick HOR(X)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
     GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);

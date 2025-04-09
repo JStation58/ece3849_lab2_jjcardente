@@ -26,9 +26,11 @@
 
 volatile float fVoltsPerDiv[5] = {0.1, 0.2, 0.5, 1, 2};
 const char * const gVoltageScaleStr[5] = {"100 mV", "200 mV", "500 mV", "1 V", "2 V"};
+const char * const gTimeScaleStr[12] = {"100 ms", "50 ms", "20 ms", "10 ms", "5 ms", "2 ms", "1 ms", "500 us", "200 us", "100 us", "50 us", "20 us"};
 extern volatile int voltsPerDiv;
 extern volatile int triggerType;
 extern float cpu_load;
+extern volatile int tSet;
 
 void init_Grid(void * sContextAdr, void * rectAdr) {
 
@@ -83,7 +85,10 @@ void init_Measure(void * sContextAdr) {
     }
 
     //Draw Volts Per Division
-    GrStringDraw(sContextAdr, gVoltageScaleStr[voltsPerDiv] , 25, 15, 10, 1);
+    GrStringDraw(sContextAdr, gVoltageScaleStr[voltsPerDiv] , 25, 7, 10, 1);
+
+    //Draw Volts Per Division
+    GrStringDraw(sContextAdr, gTimeScaleStr[tSet] , 25, 25, 10, 1);
 
     //Display CPU Load
     char cpuMessage[50];

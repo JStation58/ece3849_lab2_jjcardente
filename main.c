@@ -41,7 +41,6 @@ volatile uint16_t Data_Buffer[128];
 uint32_t DataFlag = 0;
 extern volatile uint16_t gADCBuffer[ADC_BUFFER_SIZE];
 extern volatile int32_t gADCBufferIndex;
-extern uint32_t OpFlag;
 volatile int triggerType = 0;
 volatile int voltsPerDiv = 3;
 float cpu_load = 0.0;
@@ -49,11 +48,13 @@ extern uint32_t count_unloaded;
 uint32_t count_loaded = 0;
 extern volatile int fifo_head;
 extern volatile int fifo_tail;
+volatile int tSet = 11;
+
 
 //Test Test
 
-int main(void)
-{
+int main(void) {
+
     IntMasterDisable();
 
     // Enable the Floating Point Unit, and permit ISRs to use it
@@ -75,6 +76,7 @@ int main(void)
     init_CPU_Measure();
     IntMasterEnable(); //Enable Interrupts
     init_ADC1();
+    init_ADC_Timer();
 
    /* uint32_t time;  // local copy of gTime
     uint32_t time_min; //minutes
@@ -121,6 +123,13 @@ int main(void)
                 } else {
                     voltsPerDiv++;
                 }
+            } else if (op ==2) {
+                if (tSet == 11) {
+                    tSet = 0;
+                } else {
+                    tSet++;
+                }
+                Time_Scale(tSet);
             }
         }
         count_loaded = cpu_load_count();

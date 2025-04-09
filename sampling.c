@@ -40,6 +40,7 @@ void init_ADC1(){
     // choose ADC1 sequence 0; disable before configuring
     ADCSequenceDisable(ADC1_BASE, 0);
     ADCSequenceConfigure(ADC1_BASE, 0, ADC_TRIGGER_ALWAYS, 0); // specify the "Always" trigger
+    //NOTE: ADC_TRIGGER_TIMER specifies the trigger from a timer
     // in the 0th step, sample channel 3 (AIN3)
     // enable interrupt, and make it the end of sequence
     ADCSequenceStepConfigure(ADC1_BASE, 0, 0, ADC_CTL_CH3 | ADC_CTL_IE | ADC_CTL_END);
@@ -85,7 +86,6 @@ void ADC_ISR(void) {
  * 200 us / 20 samples = 1 sample every 10 us
  * 100 us / 20 samples = 1 sample every 5 us
  * 50 us / 20 samples = 1 sample every 2.5 us
- * 20 us / 20 samples = 1 sample every 1 us
  * This is just a further test
  *
  * */

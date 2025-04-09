@@ -19,5 +19,6 @@ int Trigger(void);
 void init_Measure(void * sContextAdr);
 void init_CPU_Measure(void);
 uint32_t cpu_load_count(void);
+void Time_Scale(int tSet);
 
 #endif /* RANDOM_H_ */
