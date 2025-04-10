@@ -18,6 +18,7 @@
 #include "sysctl_pll.h"
 #include "buttons.h"
 #include "inc/tm4c1294ncpdt.h"
+#include "random.h"
 
 
 // public globals

@@ -5,6 +5,7 @@
  *      Author: jason
  */
 
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "driverlib/fpu.h"
@@ -14,6 +15,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include "random.h"
 
 #define PIXELS_PER_DIV 20
 #define Y_MID 64

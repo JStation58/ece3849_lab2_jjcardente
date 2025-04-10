@@ -111,25 +111,25 @@ int main(void) {
         //if (OpFlag == 1) {
         //    OpFlag = 0;
 
-        if (fifo_head != fifo_tail){
-            int op;
-            fifo_get(&op);
-            if (op == 3) {
-                triggerType = triggerType ^ 1;
-            } else if (op == 1) {
-                if (voltsPerDiv == 4) {
-                    voltsPerDiv = 0;
-                } else {
-                    voltsPerDiv++;
-                }
-            } else if (op ==2) {
-                if (tSet == 11) {
-                    tSet = 0;
-                } else {
-                    tSet++;
-                }
-                Time_Scale(tSet);
+
+        int op = 0;
+        fifo_get(&op);
+        if (op == 3) {
+            triggerType = triggerType ^ 1;
+        } else if (op == 1) {
+            if (voltsPerDiv == 4) {
+                voltsPerDiv = 0;
+            } else {
+                voltsPerDiv++;
             }
+        } else if (op ==2) {
+            if (tSet == 11) {
+                tSet = 0;
+            } else {
+                tSet++;
+            }
+            Time_Scale(tSet);
+
         }
         count_loaded = cpu_load_count();
         cpu_load = 1.0f - (float)count_loaded/count_unloaded; // compute CPU load
