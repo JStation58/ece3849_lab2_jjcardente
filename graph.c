@@ -65,9 +65,19 @@ void plot_data(void * sContextAdr, volatile uint16_t data[128], void * rectAdr) 
     GrContextForegroundSet(sContextAdr, ClrYellow);
     float fScale = (VIN_RANGE * PIXELS_PER_DIV)/((1 << ADC_BITS) * fVoltsPerDiv[voltsPerDiv]);
     int x;
-    int y[2] = {0};
-    for (x = 0; x < 128; x++) {
+    int y[2] = {LCD_VERTICAL_MAX/2 - (int)roundf(fScale * ((int)(data[0]) - ADC_OFFSET)) ,0};
+    if (y[0] > LCD_VERTICAL_MAX) {
+        y[0] = LCD_VERTICAL_MAX - 1;
+    } else if (y[0] < 0) {
+        y[0] = 0;
+    }
+    for (x = 1; x < 128; x++) {
         y[1] = LCD_VERTICAL_MAX/2 - (int)roundf(fScale * ((int)(data[x]) - ADC_OFFSET));
+        if (y[0] > LCD_VERTICAL_MAX) {
+           y[0] = LCD_VERTICAL_MAX - 1;
+        } else if (y[0] < 0) {
+           y[0] = 0;
+        }
         GrLineDraw(sContextAdr, (x-1), (y[0]), (x), (y[1]));
         y[0] = y[1];
     }
@@ -79,16 +89,16 @@ void init_Measure(void * sContextAdr) {
     //Draw Trigger Mode
     GrContextForegroundSet(sContextAdr , ClrWhite);
     if (triggerType == 0) {
-        GrStringDraw(sContextAdr, "/ Trigger", 25, 70, 10, 1);
+        GrStringDraw(sContextAdr, "/ Trigger", 25, 5, 107, 1);
     } else if (triggerType == 1) {
-        GrStringDraw(sContextAdr, "\\ Trigger", 25, 70, 10, 1);
+        GrStringDraw(sContextAdr, "\\ Trigger", 25, 5, 107, 1);
     }
 
     //Draw Volts Per Division
-    GrStringDraw(sContextAdr, gVoltageScaleStr[voltsPerDiv] , 25, 7, 10, 1);
+    GrStringDraw(sContextAdr, gVoltageScaleStr[voltsPerDiv] , 25, 15, 10, 1);
 
     //Draw Volts Per Division
-    GrStringDraw(sContextAdr, gTimeScaleStr[tSet] , 25, 25, 10, 1);
+    GrStringDraw(sContextAdr, gTimeScaleStr[tSet] , 25, 80, 10, 1);
 
     //Display CPU Load
     char cpuMessage[50];

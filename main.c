@@ -38,7 +38,6 @@ volatile uint32_t gTime = 8345; // time in hundredths of a second
 
 volatile uint16_t Data_Buffer[128];
 
-uint32_t DataFlag = 0;
 extern volatile uint16_t gADCBuffer[ADC_BUFFER_SIZE];
 extern volatile int32_t gADCBufferIndex;
 volatile int triggerType = 0;
@@ -100,7 +99,7 @@ int main(void) {
         GrContextForegroundSet(&sContext, ClrYellow); // yellow text
         GrStringDraw(&sContext, str, length -1, x 0, y 0, opaque false); */
 
-        int index = Trigger();
+        int index = ADC_BUFFER_WRAP(Trigger() - LCD_VERTICAL_MAX/2);
         int x;
         for (x = 0; x < LCD_VERTICAL_MAX; x++) {
             Data_Buffer[x] = gADCBuffer[ADC_BUFFER_WRAP(index + x)];

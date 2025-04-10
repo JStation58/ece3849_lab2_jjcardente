@@ -20,5 +20,7 @@ void init_Measure(void * sContextAdr);
 void init_CPU_Measure(void);
 uint32_t cpu_load_count(void);
 void Time_Scale(int tSet);
+void init_Measure(void * sContextAdr);
+void init_ADC_Timer(void);
 
 #endif /* RANDOM_H_ */
